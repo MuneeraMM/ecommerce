@@ -4,7 +4,11 @@ from core.forms import *
 
 # Create your views here.
 def index(request):
-    return render(request,'core/index.html')
+    # to get all products from database table
+    products = Product.objects.all()
+    return render(request,"core/index.html",{'products':products})
+
+    
 
 def add_product(request):
     if request.method == 'POST':
@@ -14,7 +18,9 @@ def add_product(request):
             form.save()
     
             print("Data saved successfully")
-            return redirect('add_product')
+            messages.success(request,"Product added successfully")
+
+            return redirect('/')
         else:
             print("Not working")
             messages.info(request,"Product is not added, try again")
