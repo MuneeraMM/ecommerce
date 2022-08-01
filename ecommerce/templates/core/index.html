@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Bethany Bootstrap Template - Index</title>
+  <title>Ecommerce Website</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -27,7 +27,7 @@
   <link href="{% static 'core/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="{% static './core/css/style.css' %}" rel="stylesheet">
+  <link href="{% static './core/css/index.css' %}" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Bethany - v4.7.0
@@ -168,7 +168,7 @@
                   <li class="list-group-item"><b>Price</b>   : {{product.price}}</li>
                 </ul>
                 <div class="card-footer" style="background-color: white;">
-                  <a href="#" class="btn btn-dark">View More</a>
+                  <a href="{% url 'product_desc' product.pk %}" class="btn btn-dark">View More</a>
                 </div>
               </div>
             </div>

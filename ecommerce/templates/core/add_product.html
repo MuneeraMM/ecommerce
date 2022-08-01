@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add product</title>
-  <link rel="stylesheet" href="{% static './core/css/sty.css' %}">
+  <link rel="stylesheet" href="{% static './core/css/add_product.css' %}">
   <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css' %}" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
 
@@ -14,7 +14,7 @@
 <body>
   <section >
     <div class="container">
-      <!-- <div class="user signinBx sm-12"> -->
+      
         <div class="user signinBx sm-12">
         <div class="imgBx sm-6">
           <img src="{% static 'acc/download.jpg' %}" alt="" />
@@ -26,8 +26,7 @@
         {% endif %} -->
 
         <div class="formBx">
-            
-          <!-- <form action="" onsubmit="return false;"> --> -->
+          
           <form method="post" enctype="multipart/form-data"  action="{% url 'add_product' %}" >
             {% csrf_token %}
             

@@ -28,3 +28,8 @@ def add_product(request):
         print("form not valid")
         form = ProductForm()
     return render(request, "core/add_product.html", {'form':form})
+
+def product_desc(request,pk):
+    # Get that particular product of id = pk
+    product = Product.objects.get(pk=pk)
+    return render(request,'core/product_desc.html',{'product':product})
