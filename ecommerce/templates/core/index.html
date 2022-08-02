@@ -154,12 +154,12 @@
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
       <div class="row">
-        <div class="container">
+        <div class="container-fluid">
           <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for product in products %}
             <div class="col">
-              <div class="card">
-                <img src="{{product.img.url}}" class="card-img-top" alt="" />
+              <div class="card align-items-center">
+                <img src="{{product.img.url}}" class="card-img-top mx-auto d-block" alt="" />
                 <div class="card-body">
                   <h4 class="card-title">{{product.name}}</h4>
                 </div>

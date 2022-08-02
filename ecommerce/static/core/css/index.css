@@ -447,7 +447,20 @@ section {
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
-.about .content h2 {
+.about .container-fluid {
+  margin-left: 9px;
+  padding-right: 30px;
+
+} 
+.about .card-img-top {
+  
+  height:300px;
+  width: 200px;
+  overflow:auto;
+}
+
+
+/* .about .content h2 {
   font-weight: 700;
   font-size: 48px;
   line-height: 60px;
@@ -476,7 +489,7 @@ section {
 }
 .about .content p:last-child {
   margin-bottom: 0;
-}
+} */
 
 /*--------------------------------------------------------------
 # Counts
