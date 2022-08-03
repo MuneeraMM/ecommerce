@@ -448,6 +448,18 @@ section {
 # About
 --------------------------------------------------------------*/
 .about .container-fluid {
+  margin-left: 100px;
+  padding-right: 200px;
+
+} 
+.about .card-img-top {
+  
+  height:300px;
+  width: 170px;
+  overflow:auto;
+}
+
+/* .about .container-fluid {
   margin-left: 9px;
   padding-right: 30px;
 
@@ -457,7 +469,7 @@ section {
   height:300px;
   width: 200px;
   overflow:auto;
-}
+} */
 
 
 /* .about .content h2 {
