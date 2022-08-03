@@ -1,7 +1,8 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
+{% load cart_template_tag %}
 <html lang="en">
-
+  
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -52,6 +53,11 @@
         <nav id="navbar" class="navbar">
           <ul>
             <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto active" href="#hero">Cart&nbsp;&nbsp;
+            
+              <div style="color: red;">{{request.user | cart_item_count }}
+              </div>
+            </a></li>
             <li><a class="nav-link scrollto active" href="{% url 'add_product' %}">Add Product</a></li>
             {% if user.is_authenticated %}
             <li><a class="nav-link scrollto active" href="#hero">Welcome {{user.username}}</a></li>
