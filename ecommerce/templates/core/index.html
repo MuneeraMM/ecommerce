@@ -28,7 +28,7 @@
   <link href="{% static 'core/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="{% static './core/css/index.css' %}" rel="stylesheet">
+  <link href="{% static './core/css/ind.css' %}" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Bethany - v4.7.0
@@ -45,23 +45,25 @@
     <div class="container">
       <div class="header-container d-flex align-items-center justify-content-between">
         <div class="logo">
-          <h1 class="text-light"><a href="index.html"><span>Bethany</span></a></h1>
+          <h1 class="text-light"><a href="index.html"><span>Ecommerce</span></a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-            <li><a class="nav-link scrollto active" href="#hero">Cart&nbsp;&nbsp;
-            
-              <div style="color: red;">{{request.user | cart_item_count }}
-              </div>
-            </a></li>
-            <li><a class="nav-link scrollto active" href="{% url 'add_product' %}">Add Product</a></li>
             {% if user.is_authenticated %}
+            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto active" href="{% url 'orderlist' %}">Cart&nbsp;&nbsp;
+            
+            <div style="color: red;">{{request.user | cart_item_count }}</div>
+            </a></li>
+              {% if user.is_superuser %}
+                <li><a class="nav-link scrollto active" href="{% url 'add_product' %}">Add Product</a></li>
+              {% endif %} 
             <li><a class="nav-link scrollto active" href="#hero">Welcome {{user.username}}</a></li>
             <li><a class="getstarted scrollto" href="{% url 'user_logout' %}">Logout</a></li>
+               
             {% else %}
             <li><a class="getstarted scrollto" href="{% url 'user_login' %}">Login</a></li>
             <li><a class="getstarted scrollto" href="{% url 'user_register' %}">Register</a></li>

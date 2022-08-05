@@ -1042,7 +1042,7 @@ section {
 /*--------------------------------------------------------------
 # Breadcrumbs
 --------------------------------------------------------------*/
-/* .breadcrumbs {
+.breadcrumbs {
   padding: 15px 0;
   background: #f6f6f7;
   margin-top: 100px;
@@ -1079,7 +1079,7 @@ section {
   .breadcrumbs ol li {
     display: inline-block;
   }
-} */
+}
 
 /*--------------------------------------------------------------
 # Footer
