@@ -130,3 +130,31 @@ def remove_item(request,pk):
     else:
         messages.info(request,"You do not have any order")
         return redirect("orderlist")
+
+def checkout_page(request):
+    if CheckoutAddress.objects.filter(user=request.user).exists():
+        return render(request, 'core/checkout_address.html',{'payment_allow':"allow"})
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        try:
+            if form.is_valid():
+                street_address = form.cleaned_data.get('street_address')
+                apartment_address = form.cleaned_data.get('apartment_address')
+                country = form.cleaned_data.get('country')
+                zip_code = form.cleaned_data.get('zip')
+                checkout_address = CheckoutAddress(
+                    user = request.user,
+                    street_address = street_address,
+                    apartment_address = apartment_address,
+                    country = country,
+                    zip_code= zip_code,
+                )
+                checkout_address.save()
+                print("It should render the summary page")
+                return render(request, 'core/checkout_address.html',{'payment_allow':"allow"})
+        except Exception as e:
+            messages.warning(request, "Failed checkout")
+            return redirect('checkout_page')
+    else:
+        form = CheckoutForm()
+        return render(request, 'core/checkout_address.html', {'form': form})
