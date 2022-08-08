@@ -21,7 +21,7 @@
 
         <div class="formBx">
             {% if payment_allow == "allow" %}
-            <a href="#" ><input type="submit" name="checkout" value="Go for payment" ></a>
+            <a href="{% url 'payment' %}" ><input type="submit" name="checkout" value="Go for payment" ></a>
             <!-- <a href="#" class="btn btn-block login-btn">Go for Payment</a> -->
           
           {% else %}

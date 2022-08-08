@@ -10,6 +10,8 @@ urlpatterns = [
     path('add_item/<int:pk>',views.add_item,name="add_item"),
     path('remove_item/<int:pk>',views.remove_item,name="remove_item"),
     path('checkout_page',views.checkout_page,name="checkout_page"),
+    path('payment',views.payment,name="payment"),
+    path('handlerequest',views.handlerequest,name="handlerequest"),
 
 
 ]
