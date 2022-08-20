@@ -130,7 +130,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-RAZORPAY_ID = "rzp_test_55IvguyqUYfj7x"
-RAZORPAY_SECRET = "5Jsia84zkpTkI6VBipN9B5gF"
+RAZORPAY_ID = "rzp_test_FD1LxuY7Rdw3yK"
+RAZORPAY_SECRET = "3p9BWIj03y5gWj56b4kRNQ17"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

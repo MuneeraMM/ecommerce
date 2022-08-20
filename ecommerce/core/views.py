@@ -1,16 +1,16 @@
+from http.client import HTTPResponse
 from itertools import product
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, render,redirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render,redirect
 from core.forms import *
 from core.models import *
 from django.utils import timezone
 
-import razorpay
-from django.conf import settings
-from http.client import HTTPResponse
-razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_ID, settings.RAZORPAY_SECRET))
 
-from django.views.decorators.csrf import csrf_exempt
+    # auth=(settings.RAZORPAY_ID, settings.RAZORPAY_SECRET))
+
+# from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -179,40 +179,47 @@ def payment(request):
             "apartment_address" : address.apartment_address,
             "country" : address.country.name,
             "zip" : address.zip_code,
-        }
-        razorpay_order = razorpay_client.order.create(
-            dict(
-                amount=order_amount * 100,
-                currency=order_currency,
-                receipt=order_receipt,
-                notes=notes,
-                payment_capture="0"
-            )
-        )
+            }
+        razorpay_order = razorpay_client.order.create(dict(
+             amount=order_amount *100,
+             currency=order_currency,
+             receipt=order_receipt,
+             notes=notes,
+             payment_capture="0"
+        ))
+
         print(razorpay_order["id"])
         order.razorpay_order_id = razorpay_order["id"]
         order.save()
+        
         print("It should render the summary page")
         return render(request, "core/paymentsummaryrazorpay.html",
-        {
-            "order" : order,
-            "order_id" : razorpay_order["id"],
-            "orderId" : order.order_id,
-            "final_price" : order_amount,
-            "razorpay_merchant_id" : settings.RAZORPAY_ID,
-        },
+            {
+                "order" : order,
+                "order_id" : razorpay_order["id"],
+                "orderId" : order.order_id,
+                "final_price" : order_amount,
+                "razorpay_merchant_id" : settings.RAZORPAY_ID,
+            },
         )
     except Order.DoesNotExist:
-        print("Order not found")
-        return HTTPResponse("404 Error")
+            print("Order not found")
+            return HTTPResponse("404 Error")
+
+#Adding payment gateway
+import razorpay
+from django.conf import settings
+# authorize razorpay client with API Keys.
+razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_ID, settings.RAZORPAY_SECRET))
+from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def handlerequest(request):
     # this handle request only for taking data from the razorpay dashboard.
     if request.method == "POST":
         try:
-            payment_id = request.POST.get("razorpay_payment_id", "")
             order_id = request.POST.get("razorpay_order_id", "")
+            payment_id = request.POST.get("razorpay_payment_id", "")
             signature = request.POST.get("razorpay_signature", "")
             print(payment_id, order_id, signature)
             params_dict = {
@@ -220,18 +227,20 @@ def handlerequest(request):
                 "razorpay_payment_id" : payment_id,
                 "razorpay_signature" : signature,
             }
+            
             try:
                 order_db = Order.objects.get(razorpay_order_id=order_id)
                 print("Order found")
             except:
                 print("Order not found")
                 return HTTPResponse("505 Not found")
+                
             order_db.razorpay_payment_id = payment_id
             order_db.razorpay_signature = signature
             order_db.save()
             print("Working.........")
             result = razorpay_client.utility.verify_payment_signature(params_dict)
-            if result == None:
+            if result != None:
                 print("Working final fine...........")
                 amount = order_db.get_total_price()
                 amount = amount * 100 #we have to pass in paise.
@@ -244,7 +253,7 @@ def handlerequest(request):
                     request.session[
                         "order_complete"
                     ]= "Your order is successfully placed, you will receive your order within 5 working days"
-                    return render(request, "core/invoice.html")
+                    return render(request, "core/invo/invoice.html")
                 else:
                     print("Payment failed")
                     order_db.ordered = False
@@ -259,3 +268,13 @@ def handlerequest(request):
                 return render(request, "core/paymentfailed.html")
         except:
             return HTTPResponse("Error occured")
+
+
+
+
+
+
+
+
+
+
